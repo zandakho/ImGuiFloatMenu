@@ -1,0 +1,3 @@
+[submodule "ImGuiFloatMenu/Vendors/ImGui"]
+	path = ImGuiFloatMenu/Vendors/ImGui
+	url = https://github.com/ocornut/imgui
