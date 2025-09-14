@@ -31,7 +31,7 @@ struct ImGui_ImplDX11_Data
     int                         VertexBufferSize;
     int                         IndexBufferSize;
 
-    ImGui_ImplDX11_Data() { memset((void*)this, 0, sizeof(*this)); VertexBufferSize = 5000; IndexBufferSize = 10000; }
+    ImGui_ImplDX11_Data() { memset((void*)this, 0, sizeof(*this)); VertexBufferSize = 3000; IndexBufferSize = 7000; }
 };
 
 void safe_release(IUnknown*& resource) {
@@ -90,7 +90,7 @@ void AddBackgroundBlur(ImDrawList* draw_list, IDXGISwapChain* swap_chain, ID3D11
     device = _device;
     ctx = _ctx;
 
-    draw_list->AddCallback(begin, swap_chain);
-    draw_list->AddImageRounded(tex, start, end, ImVec2(start.x / ImGui::GetIO().DisplaySize.x, start.y / ImGui::GetIO().DisplaySize.y), ImVec2(end.x / ImGui::GetIO().DisplaySize.x, end.y / ImGui::GetIO().DisplaySize.y), ImColor{ 0.4f, 0.4f, 0.4f, 0.6f}, rounding, flags);
-    draw_list->AddCallback(ImDrawCallback_ResetRenderState, 0);
+	draw_list->AddCallback(begin, swap_chain);
+	draw_list->AddImageRounded(tex, start, end, ImVec2(start.x / ImGui::GetIO().DisplaySize.x, start.y / ImGui::GetIO().DisplaySize.y), ImVec2(end.x / ImGui::GetIO().DisplaySize.x, end.y / ImGui::GetIO().DisplaySize.y), ImColor{ 0.4f, 0.4f, 0.4f, 0.2f }, rounding, flags);
+	draw_list->AddCallback(ImDrawCallback_ResetRenderState, 0);
 }

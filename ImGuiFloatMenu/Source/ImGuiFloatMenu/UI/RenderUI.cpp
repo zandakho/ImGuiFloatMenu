@@ -1,5 +1,6 @@
 #include "RenderUI.h"
 #include "Blur/blur.hpp"
+#include "UISettings.h"
 
 ID3D11Device* g_pd3dDevice = nullptr;
 ID3D11DeviceContext* g_pd3dDeviceContext = nullptr;
@@ -14,17 +15,18 @@ namespace UI
 	static bool render_blur = true;
 	void ImGuiRender::OnImGuiRender()
 	{
+		ImGui::SetWindowSize(ImVec2(reinterpret_cast<ImVec2&>(UI::settings::m_WindowProps.WindowSize)));
 		ImGui::Begin("First Window", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground);
+
 		ImDrawList* draw_list = ImGui::GetWindowDrawList();
 		ImGuiStyle* style = &ImGui::GetStyle();
 
-		if (render_blur)
-			AddBackgroundBlur(draw_list, g_pSwapChain, g_pd3dDevice, g_pd3dDeviceContext, ImGui::GetWindowPos(), ImVec2(ImGui::GetWindowPos().x + ImGui::GetWindowSize().x, ImGui::GetWindowPos().y + ImGui::GetWindowSize().y), 12.0f);
-		draw_list->AddRectFilled(ImVec2(ImGui::GetWindowPos()), ImVec2(ImGui::GetWindowPos().x + ImGui::GetWindowSize().x, ImGui::GetWindowPos().y + ImGui::GetWindowSize().y), ImColor(20, 20, 20, 200), 12.0f, ImDrawFlags_RoundCornersAll);
+		AddBackgroundBlur(draw_list, g_pSwapChain, g_pd3dDevice, g_pd3dDeviceContext, ImGui::GetWindowPos(), ImVec2(ImGui::GetWindowPos().x + UI::settings::m_WindowProps.WindowSize.x, ImGui::GetWindowPos().y + UI::settings::m_WindowProps.WindowSize.y), 12.0f, ImDrawFlags_RoundCornersAll);
+		draw_list->AddRectFilled(ImVec2(ImGui::GetWindowPos()), ImVec2(ImGui::GetWindowPos().x + ImGui::GetWindowSize().x, ImGui::GetWindowPos().y + ImGui::GetWindowSize().y), ImColor(20, 20, 20, 200), 9.0f, ImDrawFlags_RoundCornersAll);
+		draw_list->AddRectFilled(ImVec2(ImGui::GetWindowPos()), ImVec2(ImGui::GetWindowPos().x + 200, ImGui::GetWindowPos().y + ImGui::GetWindowSize().y), ImColor(20, 20, 20, 200), 9.0f, ImDrawFlags_RoundCornersTopLeft | ImDrawFlags_RoundCornersBottomLeft);
+		draw_list->AddRectFilled(ImVec2(ImGui::GetWindowPos().x + 200, ImGui::GetWindowPos().y), ImVec2(ImGui::GetWindowPos().x + ImGui::GetWindowSize().x, ImGui::GetWindowPos().y + ImGui::GetWindowSize().y), ImColor(27, 29, 30, 255), 9.0f, ImDrawFlags_RoundCornersTopRight | ImDrawFlags_RoundCornersBottomRight);
 
-		ImGui::BeginChild("Child Window", ImVec2(100, 300));
-
-		ImGui::Checkbox("Render blur", &render_blur);
+		ImGui::BeginChild("Child Window", ImVec2(300, 300));
 
 		ImGui::EndChild();
 
