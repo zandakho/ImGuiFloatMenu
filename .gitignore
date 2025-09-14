@@ -1,0 +1,27 @@
+# Visual Studio
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.user
+*.suo
+*.sdf
+*.opensdf
+*.db
+*.tlog
+*.log
+*.idb
+*.pdb
+*.ilk
+*.exp
+*.obj
+*.pch
+
+# Build directories
+Build/
+
+# Compiled files
+*.exe
+*.dll
+*.lib
+*.a
